@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template/client/layout/layout}">
+<!--/* 나머지 페이지에서 layout:fragment="content" 아래의 코드는 기본 레이아웃의 content라는 부분에 위치한다. */-->
+
+<th:block layout:fragment="content">
+    <div class="text-center"><h3>게시판 리스트</h3></div>
+
+    <div class="board-table-height">
+        <table class="table table-hover">
+            <thead>
+            <tr class="text-center">
+                <th class="col-md-2">글번호</th>
+                <th class="col-md-4">글제목</th>
+                <th class="col-md-2">작성자</th>
+                <th class="col-md-3">등록일</th>
+                <th class="col-md-1">조회수</th>
+            </tr>
+            </thead>
+            <tbody class="list">
+            <tr th:if="${#lists.size(boardList)==0}">
+                <td colspan="5" class="text-center">등록된 게시물이 존재하지 않습니다.</td>
+            </tr>
+
+            <th:block th:if="${not #strings.isEmpty(boardList)}">
+                <tr class="text-center" th:each="board : ${boardList}" th:object="${board}" th:data-no="*{no}">
+                    <td th:text="*{no}"></td>
+                    <td class="text-start goDetail" th:text="*{title}"></td>
+                    <td class="name" th:text="*{name}"></td>
+                    <td class="date" th:text="*{#temporals.format(regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="*{hit}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <button type="button" id="insertFormBtn" class="btn btn-primary btn-sm mb-2">글쓰기</button>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script src="/js/board/boardCommon.js"></script>
+    <script src="/js/board/boardList.js"></script>
+</th:block>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template/client/layout/layout}">
+<!--/* 나머지 페이지에서 layout:fragment="content" 아래의 코드는 기본 레이아웃의 content라는 부분에 위치한다. */-->
+
+<th:block layout:fragment="content">
+    <div class="text-center"><h3>게시판 입력</h3></div>
+
+    <div class="container">
+        <form id="insertForm" th:object="${board}">
+            <div class="board-table-height">
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">작성자</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" th:field="*{name}" />
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">글제목</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" th:field="*{title}" />
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">글내용</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control board-textarea" rows="8" th:field="*{content}"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <button type="button" id="boardInsertBtn" class="btn btn-primary btn-sm">글저장</button>
+                <button type="button" id="boardCancelBtn" class="btn btn-primary btn-sm">글취소</button>
+                <button type="button" id="boardListBtn" class="btn btn-primary btn-sm">글목록</button>
+            </div>
+        </form>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script src="/js/board/boardCommon.js"></script>
+    <script src="/js/board/insertForm.js"></script>
+</th:block>
+</html>
