@@ -5,10 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -111,4 +116,44 @@ public class BoardRepositoryTests {
         boardRepository.deleteById(4L);
     }
 
+    @Test
+    public void findByTitleContainingTest() {
+        //Board titleSearch = boardRepository.findByTitle("언어 명언");
+        //log.info(titleSearch.toString());
+
+        // 제목검색
+        //List<Board> list = boardRepository.findByTitleContaining("언어");
+        // 이름검색
+        //List<Board> list = boardRepository.findByNameContaining("희수");
+        // 내용검색
+        //List<Board> list = boardRepository.findByContentContaining("우리");
+
+        // 등록일검색
+        /*log.info(LocalDateTime.now().minusDays(2).toString());*/
+        log.info(LocalDateTime.now().toString());
+        List<Board> list = boardRepository.findByRegDateBetween(LocalDateTime.now().minusDays(2), LocalDateTime.now());
+
+        list.forEach(board -> log.info(board.toString()));
+    }
+
+    @Test
+    public void findByOrderByNoDescTest() {
+        // findByOrderByNoDesc(): 내림차순으로 번호 정렬
+        List<Board> boardList = boardRepository.findByOrderByNoDesc();
+        boardList.forEach(board -> log.info(board.toString()));
+    }
+
+    @Test
+    public void findAllByPageAndSort() {
+        org.springframework.data.domain.Pageable pageRequest = PageRequest.of(0, 10, Sort.Direction.DESC, "no");
+        Page<Board> boardPage = boardRepository.findAll(pageRequest);
+        boardPage.forEach(board -> log.info(board.toString()));
+    }
+
+    @Test
+    public void findByTitleContainingWithPaging() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "no");
+        Page<Board> result = boardRepository.findByTitleContaining("끈기", pageable);
+        result.forEach(board -> log.info(board.toString()));
+    }
 }
