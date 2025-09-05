@@ -28,6 +28,10 @@
                     <td class="col-md-3 align-middle">글내용</td>
                     <td colspan="3" class="col-md-9 text-start" th:utext="${#strings.replace(detail.content, newLine, '$lt;br /&gt;')}"></td>
                 </tr>
+                <tr class="board-table-tr-height" th:if="*{not #strings.isEmpty(filename)}">
+                    <td class="col-md-3 align-middle">이미지</td>
+                    <td colspan="3"><img th:src="@{/board/view/} + *{filename}" /></td>
+                </tr>
                 </tbody>
             </table>
         </div>

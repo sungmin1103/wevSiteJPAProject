@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -51,4 +52,13 @@ public class Board {
 
     // @Transient: 필드를 매핑하지 않을때 새용
     // 객체 타입을 사용하는 이뉴는 null을 리턴할 수 있기 때문이다.
+    // org.springframework.web.multipart.MultipartFile로 임포트해야 함
+    @Transient
+    private MultipartFile file;     // 파일 업로드를 위한 필드
+    
+    @Column
+    private String filename  ="";    // 실제서버에 저장할 파일명
+    
+    //  @Column
+    //  private String thumbname    ="";    // 실제서버에 저장할 썸네일 이미지 파일명
 }

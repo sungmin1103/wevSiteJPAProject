@@ -34,6 +34,18 @@
                 <button type="button" id="boardCancelBtn" class="btn btn-primary btn-sm">글취소</button>
                 <button type="button" id="boardListBtn" class="btn btn-primary btn-sm">글목록</button>
             </div>
+            <div class="mb-3 row" th:if="*{not #strings.isEmpty(filename)}">
+                <label class="col-sm-2 col-form-label">이미지</label>
+                <div class="col-sm-10">
+                    <img th:src="@{/board/view/} + *{filename}" />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">이미지파일</label>
+                <div class="col-sm-10">
+                    <input type="file" class="form-control" th:field="*{file}">
+                </div>
+            </div>
         </form>
     </div>
 </th:block>

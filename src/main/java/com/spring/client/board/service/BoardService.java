@@ -1,12 +1,15 @@
 package com.spring.client.board.service;
 
 
+import com.spring.client.common.dto.PageRequestDTO;
+import com.spring.client.common.dto.PageResponseDTO;
 import com.spring.client.board.domain.Board;
 
 import java.util.List;
 
 public interface BoardService {
     public List<Board> boardList(Board board);
+    public PageResponseDTO<Board> list(PageRequestDTO pageRequestDTO);
     public void boardInsert(Board board);
     public Board getBoard(Long no);
     public Board boardHitUpdate(Board board);       // HitUpdate를 한 이유는 조회수까지 같이 올라가야해서
