@@ -11,6 +11,33 @@
             <!--/* 페이징 처리를 위한 파라미터 */-->
             <input type="hidden" name="page" id="page" th:value="${boardList.pageRequestDTO.page}">
             <input type="hidden" name="size" id="size" th:value="${boardList.pageRequestDTO.size}">
+            <div class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <label for="search">검색조건</label>
+                </div>
+                <div class="col-auto">
+                    <select class="form-select form-select-sm" name="search" id="search">
+                        <option value="title" th:selected="${boardList.pageRequestDTO.search=='title'}">글제목</option>
+                        <option value="name" th:selected="${boardList.pageRequestDTO.search=='name'}">작성자</option>
+                        <option value="content" th:selected="${boardList.pageRequestDTO.search=='content'}">글내용</option>
+                        <option value="regDate" th:selected="${boardList.pageRequestDTO.search=='regDate'}">등록일</option>
+                    </select>
+                </div>
+                <div class="col-auto textArea">
+                    <input type="text" placeholder="검색어를 입력하세요" class="form-control form-control-sm" name="keyword" id="keyword" th:value="${boardList.pageRequestDTO.keyword}" />
+                </div>
+                <div class="col-auto dateArea">
+                    <input type="datetime-local" placeholder="시작일자" class="form-control form-control-sm" name="startDate" id="startDate" th:value="${boardList.pageRequestDTO.startDate}" />
+                </div>
+                <div class="col-auto dateArea">
+                    <input type="datetime-local" placeholder="종료일자" class="form-control form-control-sm" name="endDate" id="endDate" th:value="${boardList.pageRequestDTO.endDate}" />
+                </div>
+
+                <div class="col-auto">
+                    <button type="button" id="searchBtn" class="btn btn-primary btn-sm">검색</button>
+                    <button type="button" id="allSearchBtn" class="btn btn-primary btn-sm">전체 조회</button>
+                </div>
+            </div>
         </form>
     </div>
 
@@ -37,7 +64,7 @@
                     <td><img th:src="@{/board/view/} + *{'s_'+filename}" /></td>
                     <td th:text="*{no}"></td>
 <!--                    <td class="text-start goDetail" th:text="*{title}"></td>-->
-                   <td class="th-start"><a th:href="@{/board/} + *{no}" th:text="*{title}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"></a> </td>
+                   <td class="th-start"><a th:href="@{/board/} + *{no}" th:text="*{title}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover goDetail"></a> </td>
                     <td class="name" th:text="*{name}"></td>
                     <td class="date" th:text="*{#temporals.format(regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td th:text="*{hit}"></td>

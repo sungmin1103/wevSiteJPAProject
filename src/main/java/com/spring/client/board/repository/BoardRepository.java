@@ -31,7 +31,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     // JpaRepository-----------------------------------------------------------------------
     Page<Board> findAll(Pageable pageable);
 
-    Page<Board> findByTitleContaining(String keyword, Pageable pageable);
+    //Page<Board> findByTitleContaining(String keyword, Pageable pageable);
 
     /* JPQL 적용
      * JPA 에서 사용하는 객체 지향 쿼리 언어이다.
@@ -53,4 +53,12 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Query(value = "SELECT no, name, title, content, hit, reg_date FROM boot_board ORDER BY no DESC", nativeQuery = true)
     public List<Board> boardAllList();
+
+    // service에서 사용사는 메서드---------------------------------------------------------------
+    Page<Board> findByTitleContaining(String title, Pageable pageable);
+    Page<Board> findByNameContaining(String name, Pageable pageable);
+    Page<Board> findByContentContaining(String content, Pageable pageable);
+
+    Page<Board> findByRegDateBetween(
+            LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 }
