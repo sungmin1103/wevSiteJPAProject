@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template/client/layout/layout}">
+
+<th:block layout:fragment="content">
+    <div class="text-center"><h3>게시판 리스트</h3></div>
+
+    <div class="article-table-height">
+        <table class="table">
+            <thead>
+            <tr class="text-center">
+                <th scope="col">글번호</th>
+                <th scope="col">글제목</th>
+                <th scope="col">작성자</th>
+                <th scope="col">등록일</th>
+                <th scope="col">조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.size(articleList)==0}">
+                <td colspan="5" class="text-center">등록된 게시물이 존재하지 않습니다.</td>
+            </tr>
+            <th:block th:if="${not #strings.isEmpty(articleList)}">
+                <tr class="text-center" th:each="article : ${articleList}" th:object="${article}"  th:data-no="*{no}">
+                    <th scope="row" th:text="*{no}"></th>
+                    <td class="text-start"><a th:href="@{/article/} + *{no}" th:text="*{title}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"></a></td>
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{#temporals.format(regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="*{hit}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end">
+        <button type="button" id="insertFormBtn" class="btn btn-primary btn-sm mb-2">글쓰기</button>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script src="/js/article/article.js"></script>
+</th:block>
+</html>

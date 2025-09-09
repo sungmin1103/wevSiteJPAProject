@@ -2,12 +2,8 @@ package com.spring.client.article.controller;
 
 import com.spring.client.article.domain.Article;
 import com.spring.client.article.service.ArticleService;
-import com.spring.client.common.dto.PageRequestDTO;
-import com.spring.client.common.dto.PageResponseDTO;
 import com.spring.client.common.util.CustomFileUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +20,7 @@ public class ArticleController {
     @GetMapping("/articleList")
     public String articleList(Article article, Model model) {
         List<Article> articleList = articleService.articleList(article);
-        model.addAttribute("article", articleList);
+        model.addAttribute("articleList", articleList);
 
         return "client/article/articleList";
     }
@@ -37,7 +33,7 @@ public class ArticleController {
     @PostMapping("/articleInsert")
     public String articleInsert(Article article) {
         articleService.articleInsert(article);
-        return "redirect:/article/boardList";
+        return "redirect:/article/articleList";
     }
 
     @GetMapping("/{no}")
